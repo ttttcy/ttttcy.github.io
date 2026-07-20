@@ -18,22 +18,19 @@
 const u='https://raw.githubusercontent.com/ttttcy/ttttcy.github.io/mdh-title-landscape-update/index.html';
 const t='Media Detective Hub (MDH)智媒侦察局';
 const n='<div class="header-note" role="note" aria-label="阅读提示 / Viewing tip">横屏阅读最佳<span>Best viewed in landscape mode</span></div>';
-const s='<style>.site-header .eyebrow{letter-spacing:0}.header-note{display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:188px;padding:12px 15px;border-radius:18px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;font-weight:900;line-height:1.25}.header-note span{font-size:12px;font-weight:700;color:rgba(255,255,255,.72)}.client-experience-tip{position:absolute;top:clamp(10px,1.6vw,22px);right:clamp(10px,1.6vw,22px);z-index:5;display:grid;gap:2px;max-width:min(42%,250px);padding:clamp(8px,1vw,12px) clamp(11px,1.35vw,16px);border:1px solid rgba(79,230,243,.48);border-radius:6px;background:rgba(5,8,15,.82);box-shadow:0 10px 28px rgba(0,0,0,.26);color:#f7fbff;font-size:clamp(.72rem,1.1vw,.9rem);font-weight:850;line-height:1.25;text-align:left;pointer-events:none;backdrop-filter:blur(10px);animation:clientTipIn 420ms ease-out both}.client-experience-tip span{color:rgba(247,251,255,.72);font-size:.78em;font-weight:700}@keyframes clientTipIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}@media(max-width:760px){.header-note{align-items:flex-start;width:100%;min-width:0;box-sizing:border-box}}</style>';
-const slideImage='<img class="slide-layer slide-layer-current" src="${getSlideSrc(state.selectedCase, step.slide)}" alt="PPT slide ${step.slide}">';
-const firstSlideImage=slideImage+'${step.slide === 1 ? `<span class="client-experience-tip" role="note">客户端使用效果更佳<span>Best experienced in the client</span></span>` : ""}';
+const s='<style>.site-header .eyebrow{letter-spacing:0}.header-note{display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:188px;padding:12px 15px;border-radius:18px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;font-weight:900;line-height:1.25}.header-note span{font-size:12px;font-weight:700;color:rgba(255,255,255,.72)}@media(max-width:760px){.header-note{align-items:flex-start;width:100%;min-width:0;box-sizing:border-box}}</style>';
+const p='<scr'+'ipt src="/mdh-case-intro.js?v=2" defer><\/scr'+'ipt>';
 fetch(u,{cache:'no-store'})
   .then(r=>{if(!r.ok)throw Error(r.status);return r.text()})
   .then(h=>{
     h=h
-      .replace(/青年媒介素养成长小助手\s*\/\s*Youth Media Literacy Growth Companion/g,t)
-      .replace(/青年媒介素养成长小助手/g,t)
-      .replace(/Youth Media Literacy Growth Companion/g,'Media Detective Hub (MDH)')
       .replace(/<title>[\s\S]*?<\/title>/i,'<title>'+t+'</title>')
-      .replace(/<p class="eyebrow">[\s\S]*?<\/p>\s*<h1>[\s\S]*?<\/h1>/i,'<p class="eyebrow">Media Detective Hub / 智媒侦察局</p><h1>Media Detective Hub (MDH)<br>智媒侦察局</h1>');
+      .replace(/<p class="eyebrow">[\s\S]*?<\/p>\s*<h1>[\s\S]*?<\/h1>/i,'<p class="eyebrow">Media Detective Hub / 智媒侦察局</p><h1>Media Detective Hub (MDH)<br>智媒侦察局</h1>')
+      .replace(/(<div class="showcase-copy">[\s\S]*?<h2>)[\s\S]*?(<\/h2>)/i,'$1Media Detective Hub (MDH)<br>智媒侦察局$2');
     h=/<div class="header-note"[\s\S]*?<\/div>/i.test(h)
       ? h.replace(/<div class="header-note"[\s\S]*?<\/div>/i,n)
       : h.replace(/<\/header>/i,n+'</header>');
-    h=h.replace(slideImage,firstSlideImage).replace(/<\/head>/i,s+'</head>');
+    h=h.replace(/<\/head>/i,s+'</head>').replace(/<\/body>/i,p+'</body>');
     document.open();
     document.write(h);
     document.close();
