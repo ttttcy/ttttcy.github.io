@@ -1,8 +1,10 @@
 (function () {
   const assets = {
     manualPdf: "/assets/learning-resources/organizer-operation-manual-participant-action-record.pdf",
-    flowchartZh: "/assets/learning-resources/45-minute-flowchart-zh.webp",
-    flowchartEn: "/assets/learning-resources/45-minute-flowchart-en.webp"
+    flowchartZh: "/assets/learning-resources/45-minute-flowchart-zh-hd.webp",
+    flowchartEn: "/assets/learning-resources/45-minute-flowchart-en-hd.webp",
+    questionnaireQr: "/assets/questionnaire/wjx-questionnaire-qr.png",
+    questionnaireUrl: "https://v.wjx.cn/vm/O4quBht.aspx"
   };
   const style = document.createElement("style");
   style.textContent = `
@@ -74,8 +76,108 @@
       line-height: 1.3;
     }
     .resource-meta {
-      text-align: right;
-      white-space: nowrap;
+      display: grid;
+      place-items: center;
+      min-width: 132px;
+      min-height: 44px;
+      padding: 7px 12px;
+      border-radius: 4px;
+      background: var(--cyan);
+      color: #051018;
+      text-align: center;
+      white-space: normal;
+      box-shadow: 0 8px 24px rgba(79,230,243,.18);
+    }
+    .resource-meta strong,
+    .resource-meta small {
+      display: block;
+      color: inherit;
+      line-height: 1.15;
+    }
+    .resource-meta strong {
+      font-size: .82rem;
+      font-weight: 950;
+    }
+    .resource-meta small {
+      margin-top: 2px;
+      font-size: .65rem;
+      font-weight: 800;
+    }
+    .questionnaire-followup {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 156px;
+      gap: clamp(18px, 3vw, 32px);
+      align-items: center;
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(79,230,243,.34);
+    }
+    .questionnaire-copy h3 {
+      margin: 5px 0 0;
+      color: var(--text);
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+    .questionnaire-copy p {
+      max-width: 760px;
+      margin: 10px 0 0;
+      color: var(--soft);
+      font-size: .9rem;
+      font-weight: 680;
+      line-height: 1.58;
+    }
+    .questionnaire-copy .questionnaire-note {
+      color: #d9fbff;
+      font-weight: 800;
+    }
+    .questionnaire-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 14px;
+    }
+    .questionnaire-open {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--cyan);
+      border-radius: 4px;
+      background: var(--cyan);
+      color: #051018;
+      font-size: .84rem;
+      font-weight: 950;
+      text-decoration: none;
+    }
+    .questionnaire-url {
+      color: var(--cyan);
+      font-size: .78rem;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+    .questionnaire-qr {
+      display: grid;
+      gap: 7px;
+      justify-items: center;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+    }
+    .questionnaire-qr img {
+      display: block;
+      width: 140px;
+      height: 140px;
+      padding: 7px;
+      border: 1px solid rgba(79,230,243,.38);
+      border-radius: 4px;
+      background: #fff;
+      box-sizing: border-box;
+      image-rendering: pixelated;
     }
     .deck-stage { position: relative; }
     .deck-stage.has-case-intro {
@@ -205,7 +307,7 @@
     @media (max-width: 760px) {
       .learning-resources { gap: 16px; padding: 20px 0; }
       .resource-download { grid-template-columns: 34px minmax(0, 1fr); }
-      .resource-meta { grid-column: 2; text-align: left; }
+      .resource-meta { grid-column: 2; justify-self: start; text-align: left; }
       .site-header,
       .site-header > *,
       .home-showcase,
@@ -247,6 +349,13 @@
         grid-template-columns: 1fr;
       }
       .flowchart-action-group .nav-button { width: 100%; }
+      .questionnaire-followup {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 18px;
+        padding-top: 18px;
+      }
+      .questionnaire-qr { justify-self: start; }
     }
   `;
   document.head.appendChild(style);
@@ -280,9 +389,9 @@
         <span class="download-symbol" aria-hidden="true">↓</span>
         <span class="resource-name">
           <strong>组织者操作手册与参与者行动记录表</strong>
-          <span>Organizer Operation Manual & Participant Action Record Form</span>
+          <span>Organizer Operation Manual & Participant Action Record Form · PDF · 27 页</span>
         </span>
-        <span class="resource-meta">PDF · 27 页</span>
+        <span class="resource-meta"><strong>点击下载</strong><small>Download PDF</small></span>
       </a>
     `;
     section.querySelector("#manualDownload").href = assets.manualPdf || "#";
@@ -366,8 +475,42 @@
     }
   }
 
+  function ensureResultQuestionnaire() {
+    const resultFrame = document.querySelector(".result-screen .result-frame");
+    const completeResult = resultFrame?.querySelector(".score-box");
+    if (!resultFrame || !completeResult || resultFrame.querySelector(".questionnaire-followup")) {
+      return;
+    }
+
+    const section = document.createElement("section");
+    section.className = "questionnaire-followup";
+    section.setAttribute("aria-labelledby", "questionnaire-title");
+    section.innerHTML = `
+      <div class="questionnaire-copy">
+        <span class="stage-label">Learning feedback / 学习反馈</span>
+        <h3 id="questionnaire-title">完成学习反馈问卷<br>Complete the learning feedback questionnaire</h3>
+        <p class="questionnaire-note">建议完整学习案例 1-5 后统一填写，以便回顾完整的判断变化；如只学习了个别案例，也可以在完成当前案例后填写，请根据实际学习范围作答。</p>
+        <p>We recommend completing Cases 1-5 before submitting so you can reflect on the full learning journey. You may also respond after studying selected cases; please answer based on the cases you completed.</p>
+        <div class="questionnaire-links">
+          <a class="questionnaire-open" target="_blank" rel="noopener noreferrer">填写问卷 / Open questionnaire</a>
+          <a class="questionnaire-url" target="_blank" rel="noopener noreferrer">v.wjx.cn/vm/O4quBht.aspx</a>
+        </div>
+      </div>
+      <a class="questionnaire-qr" target="_blank" rel="noopener noreferrer" aria-label="扫描二维码填写问卷 / Scan to open questionnaire">
+        <img alt="学习反馈问卷二维码 / Learning feedback questionnaire QR code">
+        <span>扫码填写 / Scan to respond</span>
+      </a>
+    `;
+    section.querySelectorAll("a").forEach((link) => {
+      link.href = assets.questionnaireUrl;
+    });
+    section.querySelector("img").src = assets.questionnaireQr;
+    resultFrame.appendChild(section);
+  }
+
   function syncCaseIntro() {
     ensureHomeMaterials();
+    ensureResultQuestionnaire();
 
     const inner = document.querySelector(".slide-screen-inner");
     const current = inner?.querySelector(".slide-layer-current");

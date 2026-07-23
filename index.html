@@ -3,15 +3,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Media Detective Hub (MDH)智媒侦察局</title>
 <style>
+  *{box-sizing:border-box}
   body{margin:0;min-height:100vh;display:grid;place-items:center;background:#08101d;color:#fff;font-family:Arial,"Microsoft YaHei",sans-serif}
-  .box{width:min(680px,calc(100vw - 40px));padding:32px;border:1px solid #ffffff29;border-radius:22px;background:#101b2c}
+  .box{width:min(680px,calc(100vw - 40px));padding:32px;border:1px solid #ffffff29;border-radius:8px;background:#101b2c}
   .box h1{font-size:clamp(30px,6vw,56px);line-height:1.05;margin:0 0 12px}
+  .loading-status{display:flex;justify-content:space-between;gap:16px;align-items:end;margin:22px 0 8px;color:#c3ccda;font-weight:700}
+  .loading-status strong{color:#4fe6f3;font-size:clamp(26px,5vw,40px);font-variant-numeric:tabular-nums}
+  .loading-track{height:8px;overflow:hidden;border:1px solid #ffffff29;border-radius:4px;background:#07101d}
+  .loading-track span{display:block;width:0;height:100%;background:linear-gradient(90deg,#ef4b4f 0 24%,#2fb5e9 24% 49%,#ff7b2d 49% 74%,#4fe6f3 74%);transition:width 180ms ease}
   .tip{display:inline-block;margin-top:8px;padding:10px 14px;border-radius:999px;background:#4fe6f322;color:#d9fbff;font-weight:800}
 </style>
 <main class="box" id="b">
   <p>Media Detective Hub / 智媒侦察局</p>
   <h1>Media Detective Hub (MDH)<br>智媒侦察局</h1>
-  <p>正在载入案例测试网页。Loading the case test.</p>
+  <div class="loading-status"><span>正在载入案例学习<br>Loading learning cases</span><strong id="loadingPct">0%</strong></div>
+  <div class="loading-track" role="progressbar" aria-label="加载进度 / Loading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="loadingBar"></span></div>
   <div class="tip">横屏阅读最佳 / Best viewed in landscape mode</div>
 </main>
 <script>
@@ -19,10 +25,47 @@ const u='https://raw.githubusercontent.com/ttttcy/ttttcy.github.io/mdh-title-lan
 const t='Media Detective Hub (MDH)智媒侦察局';
 const n='<div class="header-note" role="note" aria-label="阅读提示 / Viewing tip">横屏阅读最佳<span>Best viewed in landscape mode</span></div>';
 const s='<style>.site-header .eyebrow{letter-spacing:0}.header-note{display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:188px;padding:12px 15px;border-radius:18px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;font-weight:900;line-height:1.25}.header-note span{font-size:12px;font-weight:700;color:rgba(255,255,255,.72)}@media(max-width:760px){.header-note{align-items:flex-start;width:100%;min-width:0;box-sizing:border-box}}</style>';
-const p='<scr'+'ipt src="/mdh-case-intro.js?v=5"><\/scr'+'ipt>';
+const p='<scr'+'ipt src="/mdh-case-intro.js?v=6"><\/scr'+'ipt>';
+const progressElement=document.querySelector('.loading-track');
+const progressText=document.getElementById('loadingPct');
+const progressBar=document.getElementById('loadingBar');
+let progressValue=2;
+function setProgress(value){
+  progressValue=Math.max(progressValue,Math.min(100,Math.round(value)));
+  progressText.textContent=progressValue+'%';
+  progressBar.style.width=progressValue+'%';
+  progressElement.setAttribute('aria-valuenow',String(progressValue));
+}
+const progressTimer=setInterval(()=>{
+  if(progressValue<92){
+    setProgress(progressValue+(progressValue<55?Math.ceil(Math.random()*6):Math.ceil(Math.random()*2)));
+  }
+},180);
+async function readSource(response){
+  if(!response.ok)throw Error(response.status);
+  const total=Number(response.headers.get('content-length'))||0;
+  if(!response.body||!total)return response.text();
+  const reader=response.body.getReader();
+  const chunks=[];
+  let received=0;
+  while(true){
+    const part=await reader.read();
+    if(part.done)break;
+    chunks.push(part.value);
+    received+=part.value.length;
+    setProgress(5+(received/total)*87);
+  }
+  const merged=new Uint8Array(received);
+  let offset=0;
+  chunks.forEach(chunk=>{merged.set(chunk,offset);offset+=chunk.length});
+  return new TextDecoder().decode(merged);
+}
+setProgress(2);
 fetch(u,{cache:'no-store'})
-  .then(r=>{if(!r.ok)throw Error(r.status);return r.text()})
+  .then(readSource)
   .then(h=>{
+    clearInterval(progressTimer);
+    setProgress(100);
     h=h
       .replace(/<title>[\s\S]*?<\/title>/i,'<title>'+t+'</title>')
       .replace(/<p class="eyebrow">[\s\S]*?<\/p>\s*<h1>[\s\S]*?<\/h1>/i,'<p class="eyebrow">Media Detective Hub / 智媒侦察局</p><h1>Media Detective Hub (MDH)<br>智媒侦察局</h1>')
@@ -31,11 +74,14 @@ fetch(u,{cache:'no-store'})
       ? h.replace(/<div class="header-note"[\s\S]*?<\/div>/i,n)
       : h.replace(/<\/header>/i,n+'</header>');
     h=h.replace(/<\/head>/i,s+'</head>').replace(/<\/body>/i,p+'</body>');
-    document.open();
-    document.write(h);
-    document.close();
+    setTimeout(()=>{
+      document.open();
+      document.write(h);
+      document.close();
+    },180);
   })
   .catch(e=>{
+    clearInterval(progressTimer);
     b.innerHTML='<p>Media Detective Hub / 智媒侦察局</p><h1>页面载入失败<br>Page failed to load</h1><p>请刷新页面重试。Please refresh and try again.</p><p>'+e+'</p>';
   });
 </script>
