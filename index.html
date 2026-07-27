@@ -25,7 +25,7 @@ const u='https://raw.githubusercontent.com/ttttcy/ttttcy.github.io/mdh-title-lan
 const t='Media Detective Hub (MDH)智媒侦察局';
 const n='<div class="header-note" role="note" aria-label="阅读提示 / Viewing tip">横屏阅读最佳<span>Best viewed in landscape mode</span></div>';
 const s='<style>.site-header .eyebrow{letter-spacing:0}.header-note{display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:188px;padding:12px 15px;border-radius:18px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;font-weight:900;line-height:1.25}.header-note span{font-size:12px;font-weight:700;color:rgba(255,255,255,.72)}@media(max-width:760px){.header-note{align-items:flex-start;width:100%;min-width:0;box-sizing:border-box}}</style>';
-const p='<scr'+'ipt src="/mdh-case-intro.js?v=7"><\/scr'+'ipt>';
+const p='<scr'+'ipt src="/mdh-case-intro.js?v=8"><\/scr'+'ipt>';
 const progressElement=document.querySelector('.loading-track');
 const progressText=document.getElementById('loadingPct');
 const progressBar=document.getElementById('loadingBar');
@@ -69,7 +69,8 @@ fetch(u,{cache:'no-store'})
     h=h
       .replace(/<title>[\s\S]*?<\/title>/i,'<title>'+t+'</title>')
       .replace(/<p class="eyebrow">[\s\S]*?<\/p>\s*<h1>[\s\S]*?<\/h1>/i,'<p class="eyebrow">Media Detective Hub / 智媒侦察局</p><h1>Media Detective Hub (MDH)<br>智媒侦察局</h1>')
-      .replace(/(<div class="showcase-copy">[\s\S]*?<h2>)[\s\S]*?(<\/h2>)/i,'$1Media Detective Hub (MDH)<br>智媒侦察局$2');
+      .replace(/(<div class="showcase-copy">[\s\S]*?<h2>)[\s\S]*?(<\/h2>)/i,'$1观察、核验、判断<br><span lang="en">Observe. Verify. Decide.</span>$2')
+      .replace(/\s*<div class="showcase-preview">[\s\S]*?<\/div>/i,'');
     h=/<div class="header-note"[\s\S]*?<\/div>/i.test(h)
       ? h.replace(/<div class="header-note"[\s\S]*?<\/div>/i,n)
       : h.replace(/<\/header>/i,n+'</header>');
