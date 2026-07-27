@@ -388,7 +388,7 @@
       width: 100%;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,.16);
-      border-radius: 6px;
+      border-radius: 50%;
       aspect-ratio: 1;
       background: #fff;
       place-items: center;
@@ -406,16 +406,18 @@
     .brand-copy h3 {
       margin: 0;
       color: var(--text);
-      font-size: clamp(1rem, 1.7vw, 1.28rem);
+      font-size: .92rem;
       line-height: 1.3;
       letter-spacing: 0;
+      white-space: nowrap;
     }
     .brand-copy p {
       margin: 6px 0 0;
       color: var(--cyan);
-      font-size: .8rem;
+      font-size: .68rem;
       font-weight: 760;
       line-height: 1.5;
+      white-space: nowrap;
     }
     .contact-row {
       display: flex;
@@ -434,8 +436,8 @@
     }
     .contact-email {
       color: var(--cyan);
-      font-size: clamp(1rem, 2vw, 1.28rem);
-      font-weight: 850;
+      font-size: .78rem;
+      font-weight: 760;
       text-decoration: none;
       overflow-wrap: anywhere;
     }
@@ -683,6 +685,12 @@
       }
       .base-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .brand-lockups { grid-template-columns: 1fr; }
+      .brand-lockup {
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 12px;
+      }
+      .brand-copy h3 { font-size: .78rem; }
+      .brand-copy p { font-size: .58rem; }
       .brand-lockup + .brand-lockup {
         margin-left: 0;
         padding-left: 0;
