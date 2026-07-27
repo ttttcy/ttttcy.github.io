@@ -403,8 +403,8 @@
       object-fit: contain;
     }
     .brand-lockup:last-child .brand-mark img {
-      width: 74%;
-      height: 74%;
+      width: 66%;
+      height: 66%;
     }
     .brand-copy { min-width: 0; }
     .brand-copy h3 {
