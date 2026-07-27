@@ -103,6 +103,164 @@
       font-size: .65rem;
       font-weight: 800;
     }
+    .about-us {
+      position: relative;
+      margin-top: clamp(34px, 5vw, 68px);
+      padding: clamp(28px, 4vw, 52px) clamp(18px, 3vw, 36px);
+      overflow: hidden;
+      border-top: 1px solid rgba(79,230,243,.42);
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(79,230,243,.06), transparent 34%), rgba(8,13,22,.72);
+    }
+    .about-us::before {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: linear-gradient(var(--red), var(--cyan), var(--orange));
+      content: "";
+    }
+    .about-heading {
+      display: grid;
+      grid-template-columns: minmax(230px, .65fr) minmax(0, 1.35fr);
+      gap: clamp(20px, 4vw, 56px);
+      align-items: end;
+      padding-bottom: clamp(24px, 3vw, 38px);
+      border-bottom: 1px solid var(--line);
+    }
+    .about-heading h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4.4vw, 4.4rem);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+    .about-heading h2 span {
+      display: block;
+      margin-top: 8px;
+      color: var(--cyan);
+      font-size: .48em;
+      line-height: 1.1;
+    }
+    .about-heading-copy {
+      max-width: 720px;
+      margin: 0;
+      color: var(--soft);
+      font-size: clamp(.92rem, 1.4vw, 1.05rem);
+      font-weight: 680;
+      line-height: 1.72;
+    }
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(300px, .78fr) minmax(0, 1.22fr);
+      gap: clamp(28px, 5vw, 66px);
+      padding-top: clamp(26px, 4vw, 46px);
+    }
+    .about-role-group + .about-role-group {
+      margin-top: 24px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+    .about-role-label {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      margin: 0 0 10px;
+      color: var(--cyan);
+      font-size: .78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .about-role-label span {
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 760;
+      text-transform: none;
+    }
+    .team-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .team-person {
+      display: grid;
+      grid-template-columns: minmax(76px, .24fr) minmax(0, 1fr);
+      gap: 14px;
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(117,152,185,.14);
+    }
+    .team-person:last-child { border-bottom: 0; }
+    .team-person strong {
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.45;
+    }
+    .team-affiliation {
+      display: grid;
+      gap: 3px;
+      min-width: 0;
+      color: var(--soft);
+      font-size: .84rem;
+      line-height: 1.55;
+    }
+    .team-affiliation [lang="en"] {
+      color: var(--muted);
+      font-size: .76rem;
+    }
+    .about-base {
+      min-width: 0;
+      padding-left: clamp(24px, 4vw, 52px);
+      border-left: 1px solid var(--line);
+    }
+    .about-base h3 {
+      margin: 0;
+      font-size: clamp(1.25rem, 2.3vw, 1.85rem);
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+    .about-base h3 span {
+      display: block;
+      margin-top: 5px;
+      color: var(--cyan);
+      font-size: .64em;
+      font-weight: 760;
+    }
+    .base-description {
+      margin: 17px 0 0;
+      color: var(--soft);
+      font-size: .88rem;
+      line-height: 1.76;
+    }
+    .base-description[lang="en"] {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+    .base-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: 24px 0 0;
+      padding: 0;
+      border-top: 1px solid var(--line);
+    }
+    .base-fact {
+      min-width: 0;
+      padding: 14px 12px 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .base-fact strong {
+      display: block;
+      color: var(--cyan);
+      font-size: clamp(1.12rem, 2vw, 1.55rem);
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+    .base-fact span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: .68rem;
+      font-weight: 750;
+      line-height: 1.42;
+    }
     .questionnaire-followup {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 156px;
@@ -303,9 +461,27 @@
     }
     @media (max-width: 1080px) {
       .learning-resources { grid-template-columns: 1fr; }
+      .about-heading,
+      .about-layout { grid-template-columns: 1fr; }
+      .about-base {
+        padding-top: 28px;
+        padding-left: 0;
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
     }
     @media (max-width: 760px) {
       .learning-resources { gap: 16px; padding: 20px 0; }
+      .about-us {
+        margin-top: 30px;
+        padding: 25px 17px;
+      }
+      .about-heading h2 { font-size: clamp(2rem, 12vw, 3.1rem); }
+      .team-person {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+      .base-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .resource-download { grid-template-columns: 34px minmax(0, 1fr); }
       .resource-meta { grid-column: 2; justify-self: start; text-align: left; }
       .site-header,
@@ -315,7 +491,13 @@
       .learning-resources,
       .resource-intro,
       .resource-download,
-      .resource-name {
+      .resource-name,
+      .about-us,
+      .about-heading,
+      .about-layout,
+      .about-base,
+      .team-person,
+      .team-affiliation {
         min-width: 0;
       }
       .site-header h1,
@@ -324,6 +506,11 @@
       .resource-intro h2,
       .resource-name strong,
       .resource-name span,
+      .about-heading h2,
+      .about-heading-copy,
+      .team-affiliation,
+      .about-base h3,
+      .base-description,
       .header-note,
       .header-note span {
         overflow-wrap: anywhere;
@@ -371,31 +558,88 @@
     }
 
     const caseGrid = document.getElementById("caseGrid");
-    if (!caseGrid || document.getElementById("learningResources")) {
+    if (!caseGrid) {
       return;
     }
 
-    const section = document.createElement("section");
-    section.className = "learning-resources";
-    section.id = "learningResources";
-    section.setAttribute("aria-labelledby", "resource-title");
-    section.innerHTML = `
-      <div class="resource-intro">
-        <p class="eyebrow">Before learning / 学习前准备</p>
-        <h2 id="resource-title">请先下载操作手册与记录表<br>Download the manual and record form first</h2>
-        <p>文件包含组织者操作说明与参与者行动记录表，共 27 页。请在案例学习前下载，配合课堂组织、判断记录与学习复盘使用。 / This 27-page file contains organizer guidance and the participant action record form. Download it before learning for facilitation, response tracking, and review.</p>
-      </div>
-      <a class="resource-download" id="manualDownload" download="Organizer-Operation-Manual-and-Participant-Action-Record.pdf">
-        <span class="download-symbol" aria-hidden="true">↓</span>
-        <span class="resource-name">
-          <strong>组织者操作手册与参与者行动记录表</strong>
-          <span>Organizer Operation Manual & Participant Action Record Form · PDF · 27 页</span>
-        </span>
-        <span class="resource-meta"><strong>点击下载</strong><small>Download PDF</small></span>
-      </a>
-    `;
-    section.querySelector("#manualDownload").href = assets.manualPdf || "#";
-    caseGrid.before(section);
+    if (!document.getElementById("learningResources")) {
+      const section = document.createElement("section");
+      section.className = "learning-resources";
+      section.id = "learningResources";
+      section.setAttribute("aria-labelledby", "resource-title");
+      section.innerHTML = `
+        <div class="resource-intro">
+          <p class="eyebrow">Before learning / 学习前准备</p>
+          <h2 id="resource-title">请先下载操作手册与记录表<br>Download the manual and record form first</h2>
+          <p>文件包含组织者操作说明与参与者行动记录表，共 27 页。请在案例学习前下载，配合课堂组织、判断记录与学习复盘使用。 / This 27-page file contains organizer guidance and the participant action record form. Download it before learning for facilitation, response tracking, and review.</p>
+        </div>
+        <a class="resource-download" id="manualDownload" download="Organizer-Operation-Manual-and-Participant-Action-Record.pdf">
+          <span class="download-symbol" aria-hidden="true">↓</span>
+          <span class="resource-name">
+            <strong>组织者操作手册与参与者行动记录表</strong>
+            <span>Organizer Operation Manual & Participant Action Record Form · PDF · 27 页</span>
+          </span>
+          <span class="resource-meta"><strong>点击下载</strong><small>Download PDF</small></span>
+        </a>
+      `;
+      section.querySelector("#manualDownload").href = assets.manualPdf || "#";
+      caseGrid.before(section);
+    }
+
+    if (!document.getElementById("aboutUs")) {
+      const about = document.createElement("section");
+      about.className = "about-us";
+      about.id = "aboutUs";
+      about.setAttribute("aria-labelledby", "about-title");
+      about.innerHTML = `
+        <div class="about-heading">
+          <div>
+            <p class="eyebrow">Production team / 制作团队</p>
+            <h2 id="about-title">About us<span>关于我们</span></h2>
+          </div>
+          <p class="about-heading-copy">由西南政法大学新闻传播学院师生共同策划与制作，依托学校媒介素养科普基地开展内容研发与教学实践。<br><span lang="en">Designed and produced by faculty and students from the School of Journalism and Communication at Southwest University of Political Science and Law, with support from the university's Media Literacy Public Education Base.</span></p>
+        </div>
+        <div class="about-layout">
+          <div class="about-roster">
+            <section class="about-role-group" aria-labelledby="lead-label">
+              <h3 class="about-role-label" id="lead-label">项目负责人 <span>Project Lead</span></h3>
+              <ul class="team-list">
+                <li class="team-person"><strong>谭淳允</strong><span class="team-affiliation">西南政法大学新闻传播学院2026级博士研究生<span lang="en">Doctoral student, 2026 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+              </ul>
+            </section>
+            <section class="about-role-group" aria-labelledby="member-label">
+              <h3 class="about-role-label" id="member-label">项目成员 <span>Team Members</span></h3>
+              <ul class="team-list">
+                <li class="team-person"><strong>卢燕燕</strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻学硕士研究生<span lang="en">Master's student in Journalism, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+                <li class="team-person"><strong>敬婵瑞</strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻与传播硕士研究生<span lang="en">Master's student in Journalism and Communication, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+                <li class="team-person"><strong>闵闻达</strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻与传播硕士研究生<span lang="en">Master's student in Journalism and Communication, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+                <li class="team-person"><strong>高梦媛</strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻与传播硕士研究生<span lang="en">Master's student in Journalism and Communication, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+              </ul>
+            </section>
+            <section class="about-role-group" aria-labelledby="advisor-label">
+              <h3 class="about-role-label" id="advisor-label">指导老师 <span>Academic Advisor</span></h3>
+              <ul class="team-list">
+                <li class="team-person"><strong>李韧</strong><span class="team-affiliation">西南政法大学新闻传播学院教授，硕博导师<span lang="en">Professor and supervisor of master's and doctoral students, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+              </ul>
+            </section>
+          </div>
+          <article class="about-base">
+            <h3>西南政法大学媒介素养科普基地<span lang="en">SWUPL Media Literacy Public Education Base</span></h3>
+            <p class="base-description">依托本校新闻传播学院，西南政法大学媒介素养科普基地于2020年8月获批设立，2025年8月获批成为联合国教科文组织媒介和信息素养联盟（MIL Alliance）成员，聚焦非遗传播、媒介素养科普、国际传播三大科普方向。基地汇聚高层次复合型师资，现有专兼职人员70名，师资力量雄厚，多名骨干入选国家级、省级人才培育项目。基地深耕数字素养提升工作，组织架构完备，具备稳定制度与经费支撑，拥有约500平方米固定活动场地。配套建设重庆市实验教学示范中心——新闻传播实验教学中心，搭建融媒体、人权传播等多个实验平台，配备435套专业影音采编设备，总值约900万元，可自主常态化开展各类媒介素养科普实践活动。</p>
+            <p class="base-description" lang="en">Based at the School of Journalism and Communication, the SWUPL Media Literacy Public Education Base was approved in August 2020 and became a member of UNESCO's Media and Information Literacy Alliance (MIL Alliance) in August 2025. Its work focuses on the communication of intangible cultural heritage, media literacy education, and international communication. The Base brings together a multidisciplinary team of highly qualified educators, with 70 full-time and part-time staff members and several key members selected for national and provincial talent-development programs. It has a complete organizational structure, stable institutional and financial support, and approximately 500 square meters of dedicated activity space. Supported by the Chongqing Experimental Teaching Demonstration Center—the Journalism and Communication Experimental Teaching Center—it operates platforms for converged media, human rights communication, and related fields. The Base has 435 sets of professional audiovisual production and editing equipment valued at approximately RMB 9 million, enabling regular, independently organized media literacy education and public-engagement activities.</p>
+            <div class="base-facts" aria-label="基地数据 / Base facts">
+              <div class="base-fact"><strong>2020.08</strong><span>获批设立 / Base established</span></div>
+              <div class="base-fact"><strong>2025.08</strong><span>加入 MIL Alliance / Joined the MIL Alliance</span></div>
+              <div class="base-fact"><strong>70</strong><span>专兼职人员 / Full- and part-time staff</span></div>
+              <div class="base-fact"><strong>≈500 m²</strong><span>固定活动场地 / Dedicated activity space</span></div>
+              <div class="base-fact"><strong>435</strong><span>专业设备 / Professional equipment sets</span></div>
+              <div class="base-fact"><strong>≈¥9M</strong><span>设备总值 / Total equipment value</span></div>
+            </div>
+          </article>
+        </div>
+      `;
+      caseGrid.after(about);
+    }
   }
 
   function renderOrientation(overlay) {
