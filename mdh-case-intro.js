@@ -360,47 +360,27 @@
     }
     .brand-footer {
       margin-top: clamp(34px, 5vw, 64px);
-      padding: clamp(26px, 4vw, 42px) 0 10px;
+      padding: clamp(22px, 3vw, 32px) 0 10px;
       border-top: 1px solid rgba(79,230,243,.42);
-    }
-    .brand-footer-header {
-      display: flex;
-      gap: 24px;
-      align-items: end;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .brand-footer-header h2 {
-      margin: 0;
-      font-size: clamp(1.35rem, 2.5vw, 2rem);
-      line-height: 1.2;
-      letter-spacing: 0;
-    }
-    .brand-footer-header p:last-child {
-      max-width: 560px;
-      margin: 0;
-      color: var(--muted);
-      font-size: .82rem;
-      line-height: 1.58;
-      text-align: right;
     }
     .brand-lockups {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      border-top: 1px solid var(--line);
+      width: min(100%, 880px);
+      margin: 0 auto;
       border-bottom: 1px solid var(--line);
     }
     .brand-lockup {
       display: grid;
-      grid-template-columns: clamp(88px, 9vw, 118px) minmax(0, 1fr);
-      gap: clamp(16px, 2.5vw, 28px);
+      grid-template-columns: clamp(72px, 7vw, 88px) minmax(0, 1fr);
+      gap: clamp(14px, 2vw, 20px);
       align-items: center;
       min-width: 0;
-      padding: clamp(20px, 3vw, 30px) 0;
+      padding: clamp(14px, 2vw, 20px) 0;
     }
     .brand-lockup + .brand-lockup {
-      margin-left: clamp(22px, 4vw, 52px);
-      padding-left: clamp(22px, 4vw, 52px);
+      margin-left: clamp(18px, 3vw, 36px);
+      padding-left: clamp(18px, 3vw, 36px);
       border-left: 1px solid var(--line);
     }
     .brand-mark {
@@ -439,10 +419,11 @@
     }
     .contact-row {
       display: flex;
-      gap: 24px;
+      gap: 10px;
       align-items: center;
-      justify-content: space-between;
-      padding-top: 22px;
+      justify-content: center;
+      padding-top: 18px;
+      text-align: center;
     }
     .contact-row p {
       margin: 0;
@@ -673,12 +654,6 @@
         border-top: 1px solid var(--line);
         border-left: 0;
       }
-      .brand-footer-header {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 8px;
-      }
-      .brand-footer-header p:last-child { text-align: left; }
     }
     @media (max-width: 760px) {
       .showcase-copy {
@@ -715,9 +690,8 @@
         border-left: 0;
       }
       .contact-row {
-        align-items: flex-start;
         flex-direction: column;
-        gap: 8px;
+        gap: 4px;
       }
       .resource-download { grid-template-columns: 34px minmax(0, 1fr); }
       .resource-meta { grid-column: 2; justify-self: start; text-align: left; }
@@ -910,15 +884,8 @@
       const footer = document.createElement("footer");
       footer.className = "brand-footer";
       footer.id = "brandFooter";
-      footer.setAttribute("aria-labelledby", "brand-footer-title");
+      footer.setAttribute("aria-label", "合作标志及联系邮箱 / Logos and contact");
       footer.innerHTML = `
-        <div class="brand-footer-header">
-          <div>
-            <p class="eyebrow">Project & institutional partners / 项目与依托单位</p>
-            <h2 id="brand-footer-title">共同推动青年媒介素养成长<br>Advancing youth media literacy together</h2>
-          </div>
-          <p>项目品牌与依托基地 / Project identity and institutional base</p>
-        </div>
         <div class="brand-lockups">
           <div class="brand-lockup">
             <div class="brand-mark">
