@@ -4,7 +4,9 @@
     flowchartZh: "/assets/learning-resources/45-minute-flowchart-zh-hd.webp",
     flowchartEn: "/assets/learning-resources/45-minute-flowchart-en-hd.webp",
     questionnaireQr: "/assets/questionnaire/wjx-questionnaire-qr.png",
-    questionnaireUrl: "https://v.wjx.cn/vm/O4quBht.aspx"
+    questionnaireUrl: "https://v.wjx.cn/vm/O4quBht.aspx",
+    mdhLogo: "/assets/brand/mdh-round-logo.svg",
+    baseLogo: "/assets/brand/swup-media-literacy-base-logo.svg"
   };
   const style = document.createElement("style");
   style.textContent = `
@@ -356,6 +358,113 @@
       font-weight: 750;
       line-height: 1.42;
     }
+    .brand-footer {
+      margin-top: clamp(34px, 5vw, 64px);
+      padding: clamp(26px, 4vw, 42px) 0 10px;
+      border-top: 1px solid rgba(79,230,243,.42);
+    }
+    .brand-footer-header {
+      display: flex;
+      gap: 24px;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .brand-footer-header h2 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.5vw, 2rem);
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+    .brand-footer-header p:last-child {
+      max-width: 560px;
+      margin: 0;
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.58;
+      text-align: right;
+    }
+    .brand-lockups {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand-lockup {
+      display: grid;
+      grid-template-columns: clamp(88px, 9vw, 118px) minmax(0, 1fr);
+      gap: clamp(16px, 2.5vw, 28px);
+      align-items: center;
+      min-width: 0;
+      padding: clamp(20px, 3vw, 30px) 0;
+    }
+    .brand-lockup + .brand-lockup {
+      margin-left: clamp(22px, 4vw, 52px);
+      padding-left: clamp(22px, 4vw, 52px);
+      border-left: 1px solid var(--line);
+    }
+    .brand-mark {
+      display: grid;
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 6px;
+      aspect-ratio: 1;
+      background: #fff;
+      place-items: center;
+    }
+    .brand-lockup:first-child .brand-mark {
+      border-radius: 50%;
+      background: #050a14;
+    }
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .brand-copy { min-width: 0; }
+    .brand-copy h3 {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(1rem, 1.7vw, 1.28rem);
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+    .brand-copy p {
+      margin: 6px 0 0;
+      color: var(--cyan);
+      font-size: .8rem;
+      font-weight: 760;
+      line-height: 1.5;
+    }
+    .contact-row {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 22px;
+    }
+    .contact-row p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 760;
+      line-height: 1.5;
+    }
+    .contact-email {
+      color: var(--cyan);
+      font-size: clamp(1rem, 2vw, 1.28rem);
+      font-weight: 850;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+    .contact-email:hover,
+    .contact-email:focus-visible {
+      color: var(--text);
+      outline: none;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
     .questionnaire-followup {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 156px;
@@ -564,6 +673,12 @@
         border-top: 1px solid var(--line);
         border-left: 0;
       }
+      .brand-footer-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .brand-footer-header p:last-child { text-align: left; }
     }
     @media (max-width: 760px) {
       .showcase-copy {
@@ -592,6 +707,18 @@
         gap: 4px;
       }
       .base-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .brand-lockups { grid-template-columns: 1fr; }
+      .brand-lockup + .brand-lockup {
+        margin-left: 0;
+        padding-left: 0;
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+      .contact-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
       .resource-download { grid-template-columns: 34px minmax(0, 1fr); }
       .resource-meta { grid-column: 2; justify-self: start; text-align: left; }
       .site-header,
@@ -776,6 +903,50 @@
         </div>
       `;
       caseGrid.after(about);
+    }
+
+    const aboutSection = document.getElementById("aboutUs");
+    if (aboutSection && !document.getElementById("brandFooter")) {
+      const footer = document.createElement("footer");
+      footer.className = "brand-footer";
+      footer.id = "brandFooter";
+      footer.setAttribute("aria-labelledby", "brand-footer-title");
+      footer.innerHTML = `
+        <div class="brand-footer-header">
+          <div>
+            <p class="eyebrow">Project & institutional partners / 项目与依托单位</p>
+            <h2 id="brand-footer-title">共同推动青年媒介素养成长<br>Advancing youth media literacy together</h2>
+          </div>
+          <p>项目品牌与依托基地 / Project identity and institutional base</p>
+        </div>
+        <div class="brand-lockups">
+          <div class="brand-lockup">
+            <div class="brand-mark">
+              <img id="mdhBrandLogo" alt="智媒侦察局标志 / Media Detective Hub logo">
+            </div>
+            <div class="brand-copy">
+              <h3>智媒侦察局</h3>
+              <p lang="en">Media Detective Hub (MDH)</p>
+            </div>
+          </div>
+          <div class="brand-lockup">
+            <div class="brand-mark">
+              <img id="baseBrandLogo" alt="西南政法大学媒介素养科普基地标志 / SWUPL Media Literacy Public Education Base logo">
+            </div>
+            <div class="brand-copy">
+              <h3>西南政法大学媒介素养科普基地</h3>
+              <p lang="en">SWUPL Media Literacy Public Education Base</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <p>联系邮箱 / Contact email</p>
+          <a class="contact-email" href="mailto:pioneer928@163.com">pioneer928@163.com</a>
+        </div>
+      `;
+      footer.querySelector("#mdhBrandLogo").src = assets.mdhLogo;
+      footer.querySelector("#baseBrandLogo").src = assets.baseLogo;
+      aboutSection.after(footer);
     }
   }
 
