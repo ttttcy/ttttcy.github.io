@@ -8,6 +8,93 @@
   };
   const style = document.createElement("style");
   style.textContent = `
+    .home-showcase {
+      display: block;
+      margin-bottom: 24px;
+    }
+    .showcase-copy {
+      position: relative;
+      display: flex;
+      min-height: 260px;
+      padding: clamp(24px, 4vw, 48px);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(105deg, rgba(239,75,79,.13), transparent 38%), linear-gradient(135deg, rgba(79,230,243,.06), transparent 64%), rgba(12,18,29,.86);
+      box-shadow: 0 14px 36px rgba(0,0,0,.22);
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .showcase-copy::after {
+      position: absolute;
+      top: 50%;
+      right: clamp(24px, 6vw, 84px);
+      color: rgba(243,247,251,.075);
+      content: "01 / 05";
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: clamp(4.4rem, 10vw, 9rem);
+      font-weight: 950;
+      line-height: 1;
+      transform: translateY(-50%);
+      white-space: nowrap;
+    }
+    .showcase-copy > * {
+      position: relative;
+      z-index: 1;
+    }
+    .showcase-copy > div:first-child { max-width: 760px; }
+    .showcase-copy h2 {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(2rem, 4.8vw, 4.8rem);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+    .showcase-copy h2 span {
+      display: block;
+      margin-top: 8px;
+      color: var(--cyan);
+      font-size: .42em;
+      font-weight: 760;
+      line-height: 1.1;
+    }
+    .showcase-copy p {
+      max-width: 690px;
+      margin: 14px 0 0;
+      color: var(--soft);
+      font-size: .98rem;
+      font-weight: 680;
+      line-height: 1.65;
+    }
+    .showcase-copy .signal-strip {
+      width: min(680px, 100%);
+      margin-top: 22px;
+    }
+    .showcase-preview { display: none !important; }
+    .case-section-heading {
+      display: flex;
+      gap: 24px;
+      align-items: end;
+      justify-content: space-between;
+      margin: clamp(28px, 4vw, 44px) 0 15px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .case-section-heading h2 {
+      margin: 0;
+      font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+    .case-count {
+      flex: 0 0 auto;
+      color: var(--cyan);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .78rem;
+      font-weight: 900;
+      line-height: 1.45;
+      text-align: right;
+    }
     .learning-resources {
       display: grid;
       grid-template-columns: minmax(250px, .8fr) minmax(0, 1.2fr);
@@ -189,9 +276,17 @@
     }
     .team-person:last-child { border-bottom: 0; }
     .team-person strong {
+      display: grid;
+      gap: 2px;
+      align-content: start;
       color: var(--text);
       font-size: 1rem;
       line-height: 1.45;
+    }
+    .person-name-en {
+      color: var(--cyan);
+      font-size: .72rem;
+      font-weight: 760;
     }
     .team-affiliation {
       display: grid;
@@ -471,6 +566,21 @@
       }
     }
     @media (max-width: 760px) {
+      .showcase-copy {
+        min-height: 230px;
+        padding: 24px 20px;
+      }
+      .showcase-copy h2 { font-size: clamp(1.8rem, 8vw, 2.8rem) !important; }
+      .showcase-copy::after {
+        right: 20px;
+        font-size: clamp(3.7rem, 17vw, 6rem);
+      }
+      .case-section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .case-count { text-align: left; }
       .learning-resources { gap: 16px; padding: 20px 0; }
       .about-us {
         margin-top: 30px;
@@ -517,7 +627,7 @@
         word-break: normal;
       }
       .site-header h1 { font-size: clamp(1.65rem, 8vw, 2rem) !important; }
-      .showcase-copy h2 { font-size: clamp(1.32rem, 7vw, 1.75rem) !important; }
+      .showcase-copy h2 { font-size: clamp(1.8rem, 8vw, 2.8rem) !important; }
       .case-intro-overlay { padding: 12px; }
       body.is-presenting .deck-stage.has-case-intro {
         min-height: calc(100svh - 20px);
@@ -544,6 +654,9 @@
       }
       .questionnaire-qr { justify-self: start; }
     }
+    @media (max-width: 480px) {
+      .showcase-copy::after { display: none; }
+    }
   `;
   document.head.appendChild(style);
 
@@ -552,10 +665,20 @@
   let flowchartLanguage = "zh";
 
   function ensureHomeMaterials() {
-    const showcaseTitle = document.querySelector(".showcase-copy h2");
-    if (showcaseTitle && showcaseTitle.innerHTML !== "Media Detective Hub (MDH)<br>智媒侦察局") {
-      showcaseTitle.innerHTML = "Media Detective Hub (MDH)<br>智媒侦察局";
+    const showcase = document.querySelector(".home-showcase");
+    const showcaseCopy = showcase?.querySelector(".showcase-copy");
+    if (showcaseCopy && showcaseCopy.dataset.homeOptimized !== "true") {
+      const copyBlock = showcaseCopy.querySelector("div:first-child");
+      if (copyBlock) {
+        copyBlock.innerHTML = `
+          <p class="eyebrow">Media literacy case lab / 媒介素养案例实验室</p>
+          <h2>观察、核验、判断<span lang="en">Observe. Verify. Decide.</span></h2>
+          <p>通过五个互动案例识别信息线索、核验证据并审慎作出传播决定。<br><span lang="en">Build stronger media judgment through five interactive cases focused on clues, evidence, and responsible sharing.</span></p>
+        `;
+      }
+      showcaseCopy.dataset.homeOptimized = "true";
     }
+    showcase?.querySelector(".showcase-preview")?.remove();
 
     const caseGrid = document.getElementById("caseGrid");
     if (!caseGrid) {
@@ -586,6 +709,20 @@
       caseGrid.before(section);
     }
 
+    if (!document.getElementById("caseSectionHeading")) {
+      const caseHeading = document.createElement("div");
+      caseHeading.className = "case-section-heading";
+      caseHeading.id = "caseSectionHeading";
+      caseHeading.innerHTML = `
+        <div>
+          <p class="eyebrow">Interactive cases / 互动案例</p>
+          <h2>选择案例开始学习 / Choose a case to begin</h2>
+        </div>
+        <div class="case-count">05 CASES<br>五个案例模块</div>
+      `;
+      caseGrid.before(caseHeading);
+    }
+
     if (!document.getElementById("aboutUs")) {
       const about = document.createElement("section");
       about.className = "about-us";
@@ -604,22 +741,22 @@
             <section class="about-role-group" aria-labelledby="lead-label">
               <h3 class="about-role-label" id="lead-label">项目负责人 <span>Project Lead</span></h3>
               <ul class="team-list">
-                <li class="team-person"><strong>谭淳允</strong><span class="team-affiliation">西南政法大学新闻传播学院2026级博士研究生<span lang="en">Doctoral student, 2026 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+                <li class="team-person"><strong>谭淳允<span class="person-name-en" lang="en">Chunyun Tan</span></strong><span class="team-affiliation">西南政法大学新闻传播学院2026级博士研究生<span lang="en">Doctoral student, 2026 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
               </ul>
             </section>
             <section class="about-role-group" aria-labelledby="member-label">
               <h3 class="about-role-label" id="member-label">项目成员 <span>Team Members</span></h3>
               <ul class="team-list">
-                <li class="team-person"><strong>卢燕燕</strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻学硕士研究生<span lang="en">Master's student in Journalism, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
-                <li class="team-person"><strong>敬婵瑞</strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻与传播硕士研究生<span lang="en">Master's student in Journalism and Communication, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
-                <li class="team-person"><strong>闵闻达</strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻与传播硕士研究生<span lang="en">Master's student in Journalism and Communication, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
-                <li class="team-person"><strong>高梦媛</strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻与传播硕士研究生<span lang="en">Master's student in Journalism and Communication, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+                <li class="team-person"><strong>卢燕燕<span class="person-name-en" lang="en">Yanyan Lu</span></strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻学硕士研究生<span lang="en">Master's student in Journalism, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+                <li class="team-person"><strong>敬婵瑞<span class="person-name-en" lang="en">Chanrui Jing</span></strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻与传播硕士研究生<span lang="en">Master's student in Journalism and Communication, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+                <li class="team-person"><strong>闵闻达<span class="person-name-en" lang="en">Wenda Min</span></strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻与传播硕士研究生<span lang="en">Master's student in Journalism and Communication, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+                <li class="team-person"><strong>高梦媛<span class="person-name-en" lang="en">Mengyuan Gao</span></strong><span class="team-affiliation">西南政法大学新闻传播学院2025级新闻与传播硕士研究生<span lang="en">Master's student in Journalism and Communication, 2025 cohort, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
               </ul>
             </section>
             <section class="about-role-group" aria-labelledby="advisor-label">
               <h3 class="about-role-label" id="advisor-label">指导老师 <span>Academic Advisor</span></h3>
               <ul class="team-list">
-                <li class="team-person"><strong>李韧</strong><span class="team-affiliation">西南政法大学新闻传播学院教授，硕博导师<span lang="en">Professor and supervisor of master's and doctoral students, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
+                <li class="team-person"><strong>李韧<span class="person-name-en" lang="en">Ren Li</span></strong><span class="team-affiliation">西南政法大学新闻传播学院教授，硕博导师<span lang="en">Professor and supervisor of master's and doctoral students, School of Journalism and Communication, Southwest University of Political Science and Law</span></span></li>
               </ul>
             </section>
           </div>
