@@ -8,6 +8,38 @@
     mdhLogo: "/assets/brand/mdh-round-logo.svg",
     baseLogo: "/assets/brand/swup-media-literacy-base-logo.svg"
   };
+  const localizedCases = [
+    {
+      id: "ai-video",
+      zh: "AI深度伪造视频",
+      en: "AI Deepfake Information Verification Case",
+      summary: "识别 AI 深度伪造视频，核查来源、背景和画面证据。 / AI deepfake information verification case."
+    },
+    {
+      id: "visual",
+      zh: "误导性图片与视频",
+      en: "Misleading Visual Content",
+      summary: "识别移花接木、断章取义和缺失语境的图片与视频。 / Review reused images, misleading crops, and missing visual context."
+    },
+    {
+      id: "headline",
+      zh: "虚假新闻",
+      en: "Fabricated Headlines & News Cards",
+      summary: "核查新闻内容、消息来源和媒体标识，识别虚假新闻。 / Check headlines, news cards, source marks, and layout imitation."
+    },
+    {
+      id: "health",
+      zh: "健康谣言与伪科学",
+      en: "Health & Science Misinformation",
+      summary: "识别夸大疗效、伪科学论证和缺乏依据的健康说法。 / Spot exaggerated claims, weak evidence, and false certainty."
+    },
+    {
+      id: "social",
+      zh: "网络舆论操纵",
+      en: "Social Media Manipulation",
+      summary: "识别刷量造势、情绪煽动、账号协同和话题操纵。 / Watch for artificial engagement, emotion cues, and coordinated accounts."
+    }
+  ];
   const style = document.createElement("style");
   style.textContent = `
     .home-showcase {
@@ -777,6 +809,31 @@
   let introStage = "orientation";
   let flowchartLanguage = "zh";
 
+  function applyLocalizedCaseCopy() {
+    const caseGrid = document.getElementById("caseGrid");
+    localizedCases.forEach((item) => {
+      const card = caseGrid?.querySelector(`[data-case="${item.id}"]`);
+      const heading = card?.querySelector("h2");
+      const summary = card?.querySelector("p");
+      if (heading?.dataset.localizedCase !== item.id) {
+        heading.replaceChildren(item.zh, document.createElement("br"), item.en);
+        heading.dataset.localizedCase = item.id;
+      }
+      if (summary && summary.textContent !== item.summary) {
+        summary.textContent = item.summary;
+      }
+    });
+
+    const caseTitle = document.getElementById("caseTitle");
+    const selected = localizedCases.find((item) => caseTitle?.textContent.includes(item.en));
+    if (caseTitle && selected) {
+      const title = `${selected.zh} / ${selected.en}`;
+      if (caseTitle.textContent !== title) {
+        caseTitle.textContent = title;
+      }
+    }
+  }
+
   function ensureHomeMaterials() {
     const showcase = document.querySelector(".home-showcase");
     const showcaseCopy = showcase?.querySelector(".showcase-copy");
@@ -797,6 +854,7 @@
     if (!caseGrid) {
       return;
     }
+    applyLocalizedCaseCopy();
 
     if (!document.getElementById("learningResources")) {
       const section = document.createElement("section");
