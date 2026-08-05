@@ -905,7 +905,7 @@
             <p class="eyebrow">Production team / 制作团队</p>
             <h2 id="about-title">About us<span>关于我们</span></h2>
           </div>
-          <p class="about-heading-copy">由西南政法大学新闻传播学院师生共同策划与制作，依托学校媒介素养科普基地开展内容研发与教学实践。<br><span lang="en">Designed and produced by faculty and students from the School of Journalism and Communication at Southwest University of Political Science and Law, with support from the university's Media Literacy Public Education Base.</span></p>
+          <p class="about-heading-copy">由西南政法大学新闻传播学院师生共同策划与制作，依托学校媒介素养科普基地开展内容研发与教学实践。<br><span lang="en">Designed and produced by faculty and students from the School of Journalism and Communication at Southwest University of Political Science and Law, with support from the Media Literacy Science Popularization Base, SWUPL.</span></p>
         </div>
         <div class="about-layout">
           <div class="about-roster">
@@ -932,9 +932,9 @@
             </section>
           </div>
           <article class="about-base">
-            <h3>西南政法大学媒介素养科普基地<span lang="en">SWUPL Media Literacy Public Education Base</span></h3>
+            <h3>西南政法大学媒介素养科普基地<span lang="en">Media Literacy Science Popularization Base, SWUPL</span></h3>
             <p class="base-description">依托本校新闻传播学院，西南政法大学媒介素养科普基地于2020年8月获批设立，2025年8月获批成为联合国教科文组织媒介和信息素养联盟（MIL Alliance）成员，聚焦非遗传播、媒介素养科普、国际传播三大科普方向。基地汇聚高层次复合型师资，现有专兼职人员70名，师资力量雄厚，多名骨干入选国家级、省级人才培育项目。基地深耕数字素养提升工作，组织架构完备，具备稳定制度与经费支撑，拥有约500平方米固定活动场地。配套建设重庆市实验教学示范中心——新闻传播实验教学中心，搭建融媒体、人权传播等多个实验平台，配备435套专业影音采编设备，总值约900万元，可自主常态化开展各类媒介素养科普实践活动。</p>
-            <p class="base-description" lang="en">Based at the School of Journalism and Communication, the SWUPL Media Literacy Public Education Base was approved in August 2020 and became a member of UNESCO's Media and Information Literacy Alliance (MIL Alliance) in August 2025. Its work focuses on the communication of intangible cultural heritage, media literacy education, and international communication. The Base brings together a multidisciplinary team of highly qualified educators, with 70 full-time and part-time staff members and several key members selected for national and provincial talent-development programs. It has a complete organizational structure, stable institutional and financial support, and approximately 500 square meters of dedicated activity space. Supported by the Chongqing Experimental Teaching Demonstration Center—the Journalism and Communication Experimental Teaching Center—it operates platforms for converged media, human rights communication, and related fields. The Base has 435 sets of professional audiovisual production and editing equipment valued at approximately RMB 9 million, enabling regular, independently organized media literacy education and public-engagement activities.</p>
+            <p class="base-description" lang="en">Based at the School of Journalism and Communication, the Media Literacy Science Popularization Base, SWUPL, was approved in August 2020 and became a member of UNESCO's Media and Information Literacy Alliance (MIL Alliance) in August 2025. Its work focuses on the communication of intangible cultural heritage, media literacy education, and international communication. The Base brings together a multidisciplinary team of highly qualified educators, with 70 full-time and part-time staff members and several key members selected for national and provincial talent-development programs. It has a complete organizational structure, stable institutional and financial support, and approximately 500 square meters of dedicated activity space. Supported by the Chongqing Experimental Teaching Demonstration Center—the Journalism and Communication Experimental Teaching Center—it operates platforms for converged media, human rights communication, and related fields. The Base has 435 sets of professional audiovisual production and editing equipment valued at approximately RMB 9 million, enabling regular, independently organized media literacy education and public-engagement activities.</p>
             <div class="base-facts" aria-label="基地数据 / Base facts">
               <div class="base-fact"><strong>2020.08</strong><span>获批设立 / Base established</span></div>
               <div class="base-fact"><strong>2025.08</strong><span>加入 MIL Alliance / Joined the MIL Alliance</span></div>
@@ -968,11 +968,11 @@
           </div>
           <div class="brand-lockup">
             <div class="brand-mark">
-              <img id="baseBrandLogo" alt="西南政法大学媒介素养科普基地标志 / SWUPL Media Literacy Public Education Base logo">
+              <img id="baseBrandLogo" alt="西南政法大学媒介素养科普基地标志 / Media Literacy Science Popularization Base, SWUPL logo">
             </div>
             <div class="brand-copy">
               <h3>西南政法大学媒介素养科普基地</h3>
-              <p lang="en">SWUPL Media Literacy Public Education Base</p>
+              <p lang="en">Media Literacy Science Popularization Base, SWUPL</p>
             </div>
           </div>
         </div>
